@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedTrack Login Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/5dfb2defde.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- Header is for the top part , it starts here.-->
+    <header class ="header">
+        <!-- Navbar is for Home,About,etc... .It starts here. -->
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+        <!-- Navbar ends here. -->
+        <!-- Search box starts here. -->
+        <form action="#" class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button type="submit"><i class='bx  bx-search'  ></i> </button>
+        </form>
+        <!-- Search box ends here. -->
+    </header>
+    <!-- Header ends here. -->
+    
+    <!-- Code for background starts here. -->
+    <div class="background"></div>
+    <!-- Code for background ends here. -->
+
+    <!-- Container code for Simple Description and Sign-in form starts here -->
+    <div class="container">
+
+        <!-- Code for content/brief Description starts here. -->
+        <div class="content">
+            <!-- Class for Team Name starts here. -->
+            <h2 class="logo">Doodle Developers</h2>
+            <!-- Class for Team Name starts here. -->
+            <!-- Class for the Text Section (brief Description)starts here. -->
+            <div class="text-section">
+                <h2> Welcome! <br><span>To Our Website.</span></h2>
+                
+                <p>MedTrack is your smart health companion, sending timely reminders so you never miss a dose and stay on top of your medication schedule.
+</p>
+                <!-- Class for icons start -->
+                <div class="social-icons">
+                    <a href="#" target = "_blank"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" target = "_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" target = "_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" target = "_blank"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+                <!-- Class for icons end -->
+            </div>
+            <!-- Class for the Text Section (brief Description) ends here. -->
+        </div>
+        <!-- Code for content/brief Description ends here. -->
+
+        <!-- Login Form class start here. -->
+        <div class="logreg-box">
+            <div class="form-box Register">
+                <form action="#">
+                    <h2>Sign Up</h2>
+                    <!-- Input for Name -->
+                    <div class="input-box">
+                        <span class="icon"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" required>
+                        <label>Name</label>
+                    </div>
+                    <!-- Input for mail -->
+                    <div class="input-box">
+                        <span class="icon"><i class="fa-solid fa-envelope"></i></span>
+                        <input type="email" required>
+                        <label>Email</label>
+                    </div>
+                    <!-- Input for password -->
+                    <div class="input-box">
+                        <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" required>
+                        <label>Password</label>
+                    </div>
+                    <!-- Checkbox for Remember me -->
+                    <div class="remember-forgot">
+                        <label><input type="checkbox"> I agree to terms & conditions.</label>
+                    </div>
+
+                    <button type="submit" class="btn">Sign Up</button>
+                    <!-- Link to Sign in page -->
+                    <div class="login-link">
+                        <p>Already have an account? <a href="signin.html" class="register-link">Sign In </a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Login Form class end here. -->
+    </div>
+    <!-- Container code for Simple Description and Sign-in form ends here -->
+
+    <script src="script.js"></script>
+</body>
+</html>
