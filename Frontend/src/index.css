@@ -22,6 +22,108 @@ body {
   display: flex;
   height: 100vh;
   background-color: #f9fafb;
+  transition: background-color 0.3s ease;
+}
+
+/* Dark Theme */
+.dashboard-container.dark-theme {
+  background-color: #1a202c;
+}
+
+.dashboard-container.dark-theme .sidebar {
+  background-color: #2d3748;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-container.dark-theme .sidebar-header h2,
+.dashboard-container.dark-theme .nav-item,
+.dashboard-container.dark-theme .section-title,
+.dashboard-container.dark-theme .chart-title,
+.dashboard-container.dark-theme .med-name-wrapper h4,
+.dashboard-container.dark-theme .detail-value,
+.dashboard-container.dark-theme .welcome-message {
+  color: #e2e8f0;
+}
+
+.dashboard-container.dark-theme .nav-item:hover {
+  background-color: #4a5568;
+}
+
+.dashboard-container.dark-theme .nav-item.active {
+  background-color: #2c5282;
+  color: #63b3ed;
+}
+
+.dashboard-container.dark-theme .charts-section,
+.dashboard-container.dark-theme .medication-card,
+.dashboard-container.dark-theme .menu-btn,
+.dashboard-container.dark-theme .welcome-section {
+  background-color: #2d3748;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-container.dark-theme .med-header:hover {
+  background-color: #4a5568;
+}
+
+.dashboard-container.dark-theme .med-details {
+  border-top: 1px solid #4a5568;
+}
+
+.dashboard-container.dark-theme .detail-label {
+  color: #a0aec0;
+}
+
+.dashboard-container.dark-theme .close-btn,
+.dashboard-container.dark-theme .expand-btn {
+  color: #a0aec0;
+}
+
+.dashboard-container.dark-theme .close-btn:hover,
+.dashboard-container.dark-theme .expand-btn:hover {
+  color: #e2e8f0;
+}
+
+.dashboard-container.dark-theme .progress-text {
+  fill: #e2e8f0;
+}
+
+.dashboard-container.dark-theme .legend-item {
+  color: #e2e8f0;
+}
+
+.dashboard-container.dark-theme .chat-box {
+  background-color: #2d3748;
+}
+
+.dashboard-container.dark-theme .chat-body {
+  background-color: #1a202c;
+}
+
+.dashboard-container.dark-theme .chat-placeholder {
+  color: #a0aec0;
+}
+
+.dashboard-container.dark-theme .chat-footer {
+  border-top: 1px solid #4a5568;
+}
+
+.dashboard-container.dark-theme .chat-input {
+  background-color: #4a5568;
+  border-color: #4a5568;
+  color: #e2e8f0;
+}
+
+.dashboard-container.dark-theme .modal {
+  background-color: #2d3748;
+}
+
+.dashboard-container.dark-theme .modal-title {
+  color: #e2e8f0;
+}
+
+.dashboard-container.dark-theme .modal-text {
+  color: #a0aec0;
 }
 
 /* Sidebar Styles */
@@ -105,6 +207,12 @@ body {
   font-size: 20px;
 }
 
+.theme-btn {
+  margin-top: 16px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 28px;
+}
+
 .logout-btn {
   color: #dc2626;
 }
@@ -136,6 +244,22 @@ body {
 
 .content-wrapper {
   padding: 32px;
+}
+
+/* Welcome Section */
+.welcome-section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.welcome-message {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1f2937;
+  margin: 0;
 }
 
 /* Charts Section */
@@ -178,32 +302,30 @@ body {
   margin-bottom: 16px;
 }
 
-/* Progress Bar */
-.progress-bar-wrapper {
+/* Circular Progress */
+.circular-progress-wrapper {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  justify-content: center;
+  margin-bottom: 24px;
 }
 
-.progress-bar {
-  flex: 1;
-  height: 32px;
-  background-color: #f45c5c;
-  border-radius: 9999px;
-  overflow: hidden;
+.circular-progress {
+  width: 200px;
+  height: 200px;
 }
 
-.progress-fill {
-  height: 100%;
-  background-color: #10b981;
-  transition: width 0.3s ease;
+.progress-bg {
+  opacity: 0.65;
 }
 
-.progress-percentage {
-  font-size: 14px;
-  font-weight: 500;
-  color: #000000;
-  min-width: 40px;
+.progress-circle {
+  transition: stroke-dasharray 0.5s ease;
+}
+
+.progress-text {
+  font-size: 32px;
+  font-weight: bold;
+  fill: #1f2937;
 }
 
 .progress-legend {
@@ -217,7 +339,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight:600;
+  font-weight: 600;
   color: #000000;
 }
 
@@ -320,6 +442,23 @@ body {
   color: #1f2937;
 }
 
+.status-badge {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.status-badge.taken {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.missed {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
 .expand-btn {
   background: none;
   border: none;
@@ -367,6 +506,49 @@ body {
   font-size: 16px;
   font-weight: 500;
   color: #1f2937;
+}
+
+/* Mark Status */
+.mark-status {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.status-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.status-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.status-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.taken-btn.active {
+  background-color: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.missed-btn.active {
+  background-color: #ef4444;
+  color: white;
+  border-color: #ef4444;
 }
 
 .action-buttons {

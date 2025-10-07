@@ -1,0 +1,142 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: 'Poppins' , sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    background:black;
+    color:white;
+    align-items:center;
+}
+
+.header{
+    width:100%;
+    height:100vh;
+    background-image:url(Images/back.png);
+    background-size: cover;
+    background-position: center;
+    padding: 10px 3%;
+    position:relative;
+}
+
+nav{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    color:white;
+}
+
+.sideText{
+    color:rgba(184, 183, 183, 0.87);
+    padding: 10px 5px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.signButton button{
+    border:0;
+    outline: 0;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 7px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor:pointer;
+}
+
+.signButtonHover:hover{
+    background: rgb(240, 52, 46);
+    font-size:18px;
+    transition: 0.6s ease;
+}
+.header-content{
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    margin-top: 100px;
+}
+.header-content h1{
+    font-size:50px;
+}
+.start{
+    border:0;
+    outline: 0;
+    color: white;
+    background: rgb(240, 52, 46);
+    padding: 7px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-left: 10px;
+    cursor:pointer;
+}
+.start:hover{
+    font-size:18px;
+    transition: 0.6s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+    padding: 80px 10%;
+    font-size:larger;
+    text-align: center;
+    background-color:rgb(59, 52, 52)
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* space between cards */
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.card p {
+    color: #666;
+    font-size: 14px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+#contact {
+    color: white;
+    background-color: #414141;
+    border: 2px solid grey;
+}
+
+footer {
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}

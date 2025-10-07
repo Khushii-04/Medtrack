@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 // import './index.css';
 
@@ -7,6 +6,8 @@ const MedicationDashboard = () => {
   const [expandedMeds, setExpandedMeds] = useState({});
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
   const [showChat, setShowChat] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(true);
+  const [username] = useState("Guest"); // You can replace this with actual username
   
   // Sample medication data
   const [medications, setMedications] = useState([
@@ -16,7 +17,8 @@ const MedicationDashboard = () => {
       dosage: "20ml",
       frequency: 2,
       duration: "Monday-Thursday",
-      time: "After Meal"
+      time: "After Meal",
+      status: null // null, 'taken', or 'missed'
     },
     {
       id: 2,
@@ -24,7 +26,8 @@ const MedicationDashboard = () => {
       dosage: "1 pill",
       frequency: 1,
       duration: "Monday-Sunday",
-      time: "Before Meal"
+      time: "Before Meal",
+      status: null
     },
     {
       id: 3,
@@ -32,13 +35,14 @@ const MedicationDashboard = () => {
       dosage: "500mg",
       frequency: 3,
       duration: "Monday-Friday",
-      time: "After Meal"
+      time: "After Meal",
+      status: null
     }
   ]);
 
   // Sample chart data
-  const takenPercentage = 75;
-  const missedPercentage = 25;
+  const takenPercentage = 80;
+  const missedPercentage = 20;
 
   // Generate heatmap data for a month (30 days)
   const generateHeatmapData = () => {
@@ -87,6 +91,16 @@ const MedicationDashboard = () => {
     alert('Logging out...');
   };
 
+  const toggleTheme = () => {
+    setDarkTheme(!darkTheme);
+  };
+
+  const handleMarkStatus = (id, status) => {
+    setMedications(medications.map(med => 
+      med.id === id ? { ...med, status } : med
+    ));
+  };
+
   const getHeatmapColor = (status, intensity) => {
     if (status === 'taken') {
       const greenShades = ['#c6f6d5', '#68d391', '#38a169'];
@@ -99,7 +113,7 @@ const MedicationDashboard = () => {
   };
 
   return (
-    <div className="dashboard-container">
+    <div className={`dashboard-container ${darkTheme ? 'dark-theme' : ''}`}>
       {/* Sidebar */}
       <div className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-content">
@@ -122,6 +136,10 @@ const MedicationDashboard = () => {
               <span className="nav-icon">📋</span>
               <span><b>Medicine Log</b></span>
             </a>
+            <button onClick={toggleTheme} className="nav-item theme-btn">
+              <span className="nav-icon">{darkTheme ? '☀️' : '🌙'}</span>
+              <span><b>{darkTheme ? 'Light Mode' : 'Dark Mode'}</b></span>
+            </button>
             <button onClick={handleLogout} className="nav-item logout-btn">
               <span className="nav-icon">🚪</span>
               <span>Log Out</span>
@@ -129,7 +147,6 @@ const MedicationDashboard = () => {
           </nav>
         </div>
       </div>
-
       {/* Main Content */}
       <div className="main-content">
         {!sidebarOpen && (
@@ -139,19 +156,52 @@ const MedicationDashboard = () => {
         )}
         
         <div className="content-wrapper">
+          {/* Welcome Message */}
+          <div className="welcome-section">
+            <h2 className="welcome-message">Hi! {username}</h2>
+          </div>
+
           {/* Charts Section */}
           <div className="charts-section">
             <h3 className="section-title">Medication Progress</h3>
             
             <div className="charts-grid">
-              {/* Progress Bar */}
+              {/* Circular Progress */}
               <div className="chart-container">
                 <h4 className="chart-title">Overall Adherence</h4>
-                <div className="progress-bar-wrapper">
-                  <div className="progress-bar">
-                    <div className="progress-fill" style={{ width: `${takenPercentage}%` }}></div>
-                  </div>
-                  <span className="progress-percentage">{takenPercentage}%</span>
+                <div className="circular-progress-wrapper">
+                  <svg className="circular-progress" viewBox="0 0 200 200">
+                    <circle
+                      className="progress-bg"
+                      cx="100"
+                      cy="100"
+                      r="80"
+                      fill="none"
+                      stroke="#f44848ff"
+                      strokeWidth="20"
+                    />
+                    <circle
+                      className="progress-circle"
+                      cx="100"
+                      cy="100"
+                      r="80"
+                      fill="none"
+                      stroke="#10b981"
+                      strokeWidth="20"
+                      strokeDasharray={`${2 * Math.PI * 80 * ((takenPercentage+25) / 100)} ${2 * Math.PI * 80}`}
+                      strokeDashoffset={2 * Math.PI * 80 * 0.25}
+                      transform="rotate(-90 100 100)"
+                    />
+                    <text
+                      x="100"
+                      y="100"
+                      textAnchor="middle"
+                      dy="0.3em"
+                      className="progress-text"
+                    >
+                      {takenPercentage}%
+                    </text>
+                  </svg>
                 </div>
                 <div className="progress-legend">
                   <div className="legend-item">
@@ -209,6 +259,11 @@ const MedicationDashboard = () => {
                   <div className="med-name-wrapper">
                     <span className="med-icon">💊</span>
                     <h4>{med.name}</h4>
+                    {med.status && (
+                      <span className={`status-badge ${med.status}`}>
+                        {med.status === 'taken' ? '✓ Taken' : '✗ Missed'}
+                      </span>
+                    )}
                   </div>
                   <button className="expand-btn">
                     {expandedMeds[med.id] ? '▲' : '▼'}
@@ -234,6 +289,25 @@ const MedicationDashboard = () => {
                       <div className="detail-item">
                         <p className="detail-label">Time</p>
                         <p className="detail-value">{med.time}</p>
+                      </div>
+                    </div>
+                    
+                    {/* Mark Status */}
+                    <div className="mark-status">
+                      <p className="detail-label">Mark as:</p>
+                      <div className="status-buttons">
+                        <button 
+                          onClick={() => handleMarkStatus(med.id, 'taken')} 
+                          className={`status-btn taken-btn ${med.status === 'taken' ? 'active' : ''}`}
+                        >
+                          ✓ Taken
+                        </button>
+                        <button 
+                          onClick={() => handleMarkStatus(med.id, 'missed')} 
+                          className={`status-btn missed-btn ${med.status === 'missed' ? 'active' : ''}`}
+                        >
+                          ✗ Missed
+                        </button>
                       </div>
                     </div>
                     
