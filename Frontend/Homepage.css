@@ -33,6 +33,7 @@ nav{
     color:rgba(184, 183, 183, 0.87);
     padding: 10px 5px;
     border-radius:5px;
+    font-size: 38px;
     cursor:pointer;
 }
 
@@ -42,7 +43,7 @@ nav{
     color: white;
     background-color: rgba(0, 0, 0, 0.15);
     padding: 7px 20px;
-    font-size: 16px;
+    font-size: 22px;
     border-radius: 4px;
     margin-left: 10px;
     cursor:pointer;
@@ -50,7 +51,7 @@ nav{
 
 .signButtonHover:hover{
     background: rgb(240, 52, 46);
-    font-size:18px;
+    font-size:25px;
     transition: 0.6s ease;
 }
 .header-content{
@@ -64,19 +65,26 @@ nav{
 .header-content h1{
     font-size:50px;
 }
+.header-content h3{
+    font-size:28px;
+}
+.header-content p{
+    font-size:20px;
+}
+
 .start{
     border:0;
     outline: 0;
     color: white;
     background: rgb(240, 52, 46);
     padding: 7px 20px;
-    font-size: 16px;
+    font-size: 26px;
     border-radius: 4px;
     margin-left: 10px;
     cursor:pointer;
 }
 .start:hover{
-    font-size:18px;
+    font-size:28px;
     transition: 0.6s ease;
 }
 
@@ -103,13 +111,15 @@ section {
     background-color: #fff;
     border-radius: 12px;
     padding: 20px;
-    width: 250px;
+    width: 50%;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .card:hover {
+    /* background-color: (rgb(85, 240, 46),rgb(12, 151, 119),rgb(17, 108, 192)); */
+    background-color: rgb(233, 56, 56);
     transform: translateY(-10px);
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
@@ -118,12 +128,18 @@ section {
     margin-bottom: 15px;
     color: #333;
 }
-
+.card h3:hover{
+    color:aliceblue;
+}
 .card p {
     color: #666;
-    font-size: 14px;
+    font-size: 18px;
+    font: weight 5px;
 }
 
+.card p:hover{
+    color:aliceblue;
+}
 ul {
     list-style-type: none;
     padding: 0;
