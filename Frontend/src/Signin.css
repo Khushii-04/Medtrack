@@ -1,0 +1,125 @@
+/* Signin.css */
+
+/* Default styles - hide hamburger and sidebar on desktop */
+.hamburger-menu {
+  display: none !important;
+}
+
+.mobile-sidebar,
+.sidebar-overlay {
+  display: block;
+}
+
+/* Tablet Responsive Styles */
+@media (max-width: 768px) {
+  .signin-container {
+    width: 95% !important;
+    height: auto !important;
+    flex-direction: column !important;
+    margin-top: 100px !important;
+  }
+
+  .signin-content {
+    padding: 40px 20px !important;
+    display: none !important; /* Hide left side on mobile */
+  }
+
+  .signin-logreg-box {
+    width: 100% !important;
+    padding: 30px 20px !important;
+    border-radius: 10px !important;
+  }
+
+  .signin-form-box {
+    max-width: 100% !important;
+  }
+
+  .signin-header {
+    padding: 15px 5% !important;
+  }
+
+  .signin-navbar {
+    gap: 15px !important;
+  }
+
+  .signin-search-bar {
+    width: 200px !important;
+  }
+}
+
+/* Mobile Responsive Styles with Sidebar */
+@media (max-width: 480px) {
+  .signin-container {
+    width: 98% !important;
+    margin-top: 90px !important;
+  }
+
+  .signin-form-heading {
+    font-size: 24px !important;
+  }
+
+  .signin-input-box {
+    margin-bottom: 20px !important;
+  }
+
+  .signin-logreg-box {
+    padding: 20px 15px !important;
+  }
+
+  /* Show hamburger menu on mobile */
+  .hamburger-menu {
+    display: flex !important;
+  }
+
+  /* Hide desktop navigation links on mobile */
+  .signin-navbar {
+    display: none !important;
+  }
+
+  /* Adjust header for mobile */
+  .signin-header {
+    padding: 15px 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  /* Adjust search bar for mobile */
+  .signin-search-bar {
+    width: calc(100% - 50px) !important;
+    max-width: 200px !important;
+    height: 40px !important;
+  }
+
+  .signin-search-bar input {
+    font-size: 14px !important;
+  }
+
+  .signin-search-bar button i {
+    font-size: 18px !important;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+  .signin-header {
+    padding: 12px 15px !important;
+  }
+
+  .signin-search-bar {
+    max-width: 150px !important;
+    height: 38px !important;
+  }
+
+  .hamburger-menu span {
+    width: 24px !important;
+  }
+
+  .signin-form-heading {
+    font-size: 22px !important;
+  }
+
+  .mobile-sidebar {
+    width: 85% !important;
+  }
+}

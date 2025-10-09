@@ -1,0 +1,127 @@
+/* Signup.css */
+
+/* Default styles - hide hamburger and sidebar on desktop */
+.hamburger-menu {
+  display: none !important;
+}
+
+.mobile-sidebar,
+.sidebar-overlay {
+  display: block;
+}
+
+/* Tablet Responsive Styles */
+@media (max-width: 768px) {
+  .signup-container {
+    width: 95% !important;
+    height: auto !important;
+    min-height: auto !important;
+    flex-direction: column !important;
+    margin-top: 100px !important;
+    padding-bottom: 30px;
+  }
+
+  .signup-content {
+    padding: 40px 20px !important;
+    display: none !important; /* Hide left side on mobile */
+  }
+
+  .signup-logreg-box {
+    width: 100% !important;
+    padding: 30px 20px !important;
+    border-radius: 10px !important;
+  }
+
+  .signup-form-box {
+    max-width: 100% !important;
+  }
+
+  .signup-header {
+    padding: 15px 5% !important;
+  }
+
+  .signup-navbar {
+    gap: 15px !important;
+  }
+
+  .signup-search-bar {
+    width: 200px !important;
+  }
+
+  .signup-input-box {
+    margin-bottom: 20px !important;
+  }
+}
+
+/* Mobile Responsive Styles with Sidebar */
+@media (max-width: 480px) {
+  .signup-container {
+    width: 98% !important;
+    margin-top: 90px !important;
+  }
+
+  .signup-form-heading {
+    font-size: 24px !important;
+  }
+
+  .signup-logreg-box {
+    padding: 20px 15px !important;
+  }
+
+  /* Show hamburger menu on mobile */
+  .hamburger-menu {
+    display: flex !important;
+  }
+
+  /* Hide desktop navigation links on mobile */
+  .signup-navbar {
+    display: none !important;
+  }
+
+  /* Adjust header for mobile */
+  .signup-header {
+    padding: 15px 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  /* Adjust search bar for mobile */
+  .signup-search-bar {
+    width: calc(100% - 50px) !important;
+    max-width: 200px !important;
+    height: 40px !important;
+  }
+
+  .signup-search-bar input {
+    font-size: 14px !important;
+  }
+
+  .signup-search-bar button i {
+    font-size: 18px !important;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+  .signup-header {
+    padding: 12px 15px !important;
+  }
+
+  .signup-search-bar {
+    max-width: 150px !important;
+    height: 38px !important;
+  }
+
+  .hamburger-menu span {
+    width: 24px !important;
+  }
+
+  .signup-form-heading {
+    font-size: 22px !important;
+  }
+
+  .mobile-sidebar {
+    width: 85% !important;
+  }
+}

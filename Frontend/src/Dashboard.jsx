@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-// import './index.css';
+import { useNavigate } from 'react-router-dom';
 
 const MedicationDashboard = () => {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [expandedMeds, setExpandedMeds] = useState({});
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
@@ -88,7 +89,7 @@ const MedicationDashboard = () => {
   };
 
   const handleLogout = () => {
-    alert('Logging out...');
+    navigate('/');
   };
 
   const toggleTheme = () => {
@@ -124,18 +125,18 @@ const MedicationDashboard = () => {
             </button>
           </div>
           <nav className="sidebar-nav">
-            <a href="Dashboard.jsx" className="nav-item active">
+            <button onClick={() => navigate('/dashboard')} className="nav-item active">
               <span className="nav-icon">📊</span>
               <span><b>Dashboard</b></span>
-            </a>
-            <a href="#profile" className="nav-item">
+            </button>
+            <button onClick={() => navigate('/profile')} className="nav-item">
               <span className="nav-icon">👤</span>
               <span><b>Profile</b></span>
-            </a>
-            <a href="#" className="nav-item">
+            </button>
+            <button onClick={() => navigate('/medicine-log')} className="nav-item">
               <span className="nav-icon">📋</span>
               <span><b>Medicine Log</b></span>
-            </a>
+            </button>
             <button onClick={toggleTheme} className="nav-item theme-btn">
               <span className="nav-icon">{darkTheme ? '☀️' : '🌙'}</span>
               <span><b>{darkTheme ? 'Light Mode' : 'Dark Mode'}</b></span>
@@ -312,8 +313,8 @@ const MedicationDashboard = () => {
                     </div>
                     
                     <div className="action-buttons">
-                      <button className="edit-btn">
-                        ✏️ Edit
+                      <button onClick={() => navigate('/edit-medicine')} className="edit-btn">
+                          ✏️ Edit
                       </button>
                       <button onClick={() => handleDeleteClick(med.id)} className="delete-btn">
                         🗑️ Delete
