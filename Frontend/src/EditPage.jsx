@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate, useLocation } from 'react-router-dom';
+const location = useLocation();
+const medicationId = location.state?.medicationId; 
 
 const EditMedicine = () => {
   const navigate = useNavigate();
@@ -32,11 +35,28 @@ const EditMedicine = () => {
     setShowConfirmModal(true);
   };
 
-  const confirmChanges = () => {
-    setShowConfirmModal(false);
-    setTimeout(() => {
-      setShowSuccessModal(true);
-    }, 300);
+  const confirmChanges = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put(`http://localhost:5000/api/medications/${medicationId}`, 
+        {
+          name: pillName,
+          dosage,
+          frequency: parseInt(frequency),
+          duration: selectedDays,
+          time
+        },
+        { headers: { Authorization: `Bearer ${token}` }}
+      );
+
+      setShowConfirmModal(false);
+      setTimeout(() => {
+        setShowSuccessModal(true);
+      }, 300);
+    }catch (error) {
+    alert('Failed to update medication');
+      setShowConfirmModal(false);
+    }
   };
 
   const handleSendMessage = () => {

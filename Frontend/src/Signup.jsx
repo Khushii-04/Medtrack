@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Signup.css';
 import signinBg from './assets/images/background.jpg'
+import axios from 'axios';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -13,10 +14,31 @@ const Signup = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Your validation logic here
-    navigate('/dashboard'); 
+  
+    if (!agreeTerms) {
+      alert('Please agree to terms and conditions');
+      return;
+    } 
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/signup', {
+        username,
+        email,
+        phone,
+        password
+      });
+    
+    // Store token in localStorage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.userId);
+    
+    // Navigate to dashboard
+      navigate('/dashboard');
+    } catch (error) {
+      alert(error.response?.data?.message || 'Signup failed. Please try again.');
+    }
   };
 
   const handleSearch = (e) => {

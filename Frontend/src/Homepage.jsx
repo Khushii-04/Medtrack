@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import back from './assets/images/back3.avif';
+import axios from 'axios';
+
 const Homepage = () => {
   const navigate = useNavigate();
   const [hoveredButton, setHoveredButton] = useState(null);

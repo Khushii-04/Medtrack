@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const MedicationDashboard = () => {
   const navigate = useNavigate();
@@ -9,7 +10,29 @@ const MedicationDashboard = () => {
   const [showChat, setShowChat] = useState(false);
   const [darkTheme, setDarkTheme] = useState(true);
   const [username] = useState("Guest"); // You can replace this with actual username
-  
+  const [loading, setLoading] = useState(true);
+
+  const PORT = process.env.PORT || 5000;
+  // Fetch medications on component mount 
+  // Check Once from here to
+  useEffect(() => {
+    fetchMedications();
+  }, []);
+  const fetchMedications = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:5000/api/medications', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setMedications(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching medications:', error);
+      alert('Failed to load medications');
+      setLoading(false);
+    }
+  };
+  // here , like i think i'm still taking the sample data right , in the next step.
   // Sample medication data
   const [medications, setMedications] = useState([
     {
@@ -79,11 +102,21 @@ const MedicationDashboard = () => {
     setShowDeleteConfirm(id);
   };
 
-  const confirmDelete = () => {
-    setMedications(medications.filter(med => med.id !== showDeleteConfirm));
+  const confirmDelete = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`http://localhost:5000/api/medications/${showDeleteConfirm}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      setMedications(medications.filter(med => med.id !== showDeleteConfirm));
     setShowDeleteConfirm(null);
+    } catch (error) {
+      alert('Failed to delete medication');
+      setShowDeleteConfirm(null);
+    }
   };
-
+  
   const cancelDelete = () => {
     setShowDeleteConfirm(null);
   };
@@ -96,10 +129,20 @@ const MedicationDashboard = () => {
     setDarkTheme(!darkTheme);
   };
 
-  const handleMarkStatus = (id, status) => {
-    setMedications(medications.map(med => 
-      med.id === id ? { ...med, status } : med
-    ));
+  const handleMarkStatus = async (id, status) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put(`http://localhost:5000/api/medications/${id}`, 
+        { status },
+        { headers: { Authorization: `Bearer ${token}` }}
+      );
+    
+      setMedications(medications.map(med => 
+        med.id === id ? { ...med, status } : med
+      ));
+    } catch (error) {
+      alert('Failed to update status');
+    }
   };
 
   const getHeatmapColor = (status, intensity) => {
@@ -313,7 +356,7 @@ const MedicationDashboard = () => {
                     </div>
                     
                     <div className="action-buttons">
-                      <button onClick={() => navigate('/edit-medicine')} className="edit-btn">
+                      <button onClick={() => navigate('/edit-medicine', { state: { medicationId: med.id } })} className="edit-btn">
                           ✏️ Edit
                       </button>
                       <button onClick={() => handleDeleteClick(med.id)} className="delete-btn">
