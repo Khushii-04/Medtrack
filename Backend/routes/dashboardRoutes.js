@@ -1,12 +1,14 @@
-import express from 'express';
-import { getAdherenceStats } from '../controllers/dashboardController.js';
-import authMiddleware from '../middlewares/authMiddleware.js';
-
+const express = require('express');
 const router = express.Router();
 
-// @route   GET /api/dashboard/stats
-// @desc    Get medication adherence statistics for the last 7 days
-// @access  Private
-router.get('/stats', authMiddleware, getAdherenceStats);
+// 1. Use 'require' to import the controller function
+const { getDashboardStats } = require('../controllers/dashboardController.js');
 
-export default router;
+// 2. Use 'require' to import the middleware
+const authMiddleware = require('../middlewares/authMiddleware.js');
+
+// 3. Define the route
+router.get('/stats', authMiddleware, getDashboardStats);
+
+// 4. Use 'module.exports' to export the router
+module.exports = router;
