@@ -379,7 +379,9 @@ const MedicationDashboard = () => {
         </button>
         
         {/* Add Medicine Button */}
-        <button className="fab add-fab">
+        <button 
+        onClick={() => navigate('/add-medicine')}
+        className="fab add-fab">
           +
         </button>
       </div>
