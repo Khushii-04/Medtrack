@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const MedicationDashboard = () => {
   const navigate = useNavigate();
+  
+  // All useState hooks should be at the top level of the component
+  const [medications, setMedications] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [expandedMeds, setExpandedMeds] = useState({});
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
   const [showChat, setShowChat] = useState(false);
   const [darkTheme, setDarkTheme] = useState(true);
-  const [username] = useState("Guest"); // You can replace this with actual username
+  const [name] = useState("Guest"); // You can replace this with actual username
   const [loading, setLoading] = useState(true);
 
-  const PORT = process.env.PORT || 5000;
-  // Fetch medications on component mount 
-  // Check Once from here to
+  // useEffect should be called after all state has been declared
   useEffect(() => {
     fetchMedications();
   }, []);
+
   const fetchMedications = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/medications', {
+      const response = await axios.get('http://localhost:8080/api/medications', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMedications(response.data);
@@ -32,37 +34,6 @@ const MedicationDashboard = () => {
       setLoading(false);
     }
   };
-  // here , like i think i'm still taking the sample data right , in the next step.
-  // Sample medication data
-  const [medications, setMedications] = useState([
-    {
-      id: 1,
-      name: "Aspirin",
-      dosage: "20ml",
-      frequency: 2,
-      duration: "Monday-Thursday",
-      time: "After Meal",
-      status: null // null, 'taken', or 'missed'
-    },
-    {
-      id: 2,
-      name: "Vitamin D",
-      dosage: "1 pill",
-      frequency: 1,
-      duration: "Monday-Sunday",
-      time: "Before Meal",
-      status: null
-    },
-    {
-      id: 3,
-      name: "Metformin",
-      dosage: "500mg",
-      frequency: 3,
-      duration: "Monday-Friday",
-      time: "After Meal",
-      status: null
-    }
-  ]);
 
   // Sample chart data
   const takenPercentage = 80;
@@ -105,12 +76,12 @@ const MedicationDashboard = () => {
   const confirmDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/medications/${showDeleteConfirm}`, {
+      await axios.delete(`http://localhost:8080/api/medications/${showDeleteConfirm}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
-      setMedications(medications.filter(med => med.id !== showDeleteConfirm));
-    setShowDeleteConfirm(null);
+      setMedications(medications.filter(med => med._id !== showDeleteConfirm));
+      setShowDeleteConfirm(null);
     } catch (error) {
       alert('Failed to delete medication');
       setShowDeleteConfirm(null);
@@ -122,6 +93,8 @@ const MedicationDashboard = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     navigate('/');
   };
 
@@ -132,13 +105,13 @@ const MedicationDashboard = () => {
   const handleMarkStatus = async (id, status) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/medications/${id}`, 
+      await axios.put(`http://localhost:8080/api/medications/${id}`, 
         { status },
         { headers: { Authorization: `Bearer ${token}` }}
       );
     
       setMedications(medications.map(med => 
-        med.id === id ? { ...med, status } : med
+        med._id === id ? { ...med, status } : med
       ));
     } catch (error) {
       alert('Failed to update status');
@@ -155,6 +128,10 @@ const MedicationDashboard = () => {
     }
     return '#e2e8f0';
   };
+
+  if (loading) {
+    return <div>Loading your dashboard...</div>;
+  }
 
   return (
     <div className={`dashboard-container ${darkTheme ? 'dark-theme' : ''}`}>
@@ -202,7 +179,7 @@ const MedicationDashboard = () => {
         <div className="content-wrapper">
           {/* Welcome Message */}
           <div className="welcome-section">
-            <h2 className="welcome-message">Hi! {username}</h2>
+            <h2 className="welcome-message">Hi! {name}</h2>
           </div>
 
           {/* Charts Section */}
@@ -232,7 +209,7 @@ const MedicationDashboard = () => {
                       fill="none"
                       stroke="#10b981"
                       strokeWidth="20"
-                      strokeDasharray={`${2 * Math.PI * 80 * ((takenPercentage+25) / 100)} ${2 * Math.PI * 80}`}
+                      strokeDasharray={`${2 * Math.PI * 80 * ((takenPercentage) / 100)} ${2 * Math.PI * 80}`}
                       strokeDashoffset={2 * Math.PI * 80 * 0.25}
                       transform="rotate(-90 100 100)"
                     />
@@ -297,9 +274,9 @@ const MedicationDashboard = () => {
             <h3 className="section-title">Your Medications</h3>
             
             {medications.map((med) => (
-              <div key={med.id} className="medication-card">
+              <div key={med._id} className="medication-card">
                 {/* Collapsed View */}
-                <div className="med-header" onClick={() => toggleMedExpansion(med.id)}>
+                <div className="med-header" onClick={() => toggleMedExpansion(med._id)}>
                   <div className="med-name-wrapper">
                     <span className="med-icon">💊</span>
                     <h4>{med.name}</h4>
@@ -310,12 +287,12 @@ const MedicationDashboard = () => {
                     )}
                   </div>
                   <button className="expand-btn">
-                    {expandedMeds[med.id] ? '▲' : '▼'}
+                    {expandedMeds[med._id] ? '▲' : '▼'}
                   </button>
                 </div>
 
                 {/* Expanded View */}
-                {expandedMeds[med.id] && (
+                {expandedMeds[med._id] && (
                   <div className="med-details">
                     <div className="details-grid">
                       <div className="detail-item">
@@ -328,7 +305,7 @@ const MedicationDashboard = () => {
                       </div>
                       <div className="detail-item">
                         <p className="detail-label">Medication Duration</p>
-                        <p className="detail-value">{med.duration}</p>
+                        <p className="detail-value">{med.duration.join(', ')}</p>
                       </div>
                       <div className="detail-item">
                         <p className="detail-label">Time</p>
@@ -341,13 +318,13 @@ const MedicationDashboard = () => {
                       <p className="detail-label">Mark as:</p>
                       <div className="status-buttons">
                         <button 
-                          onClick={() => handleMarkStatus(med.id, 'taken')} 
+                          onClick={() => handleMarkStatus(med._id, 'taken')} 
                           className={`status-btn taken-btn ${med.status === 'taken' ? 'active' : ''}`}
                         >
                           ✓ Taken
                         </button>
                         <button 
-                          onClick={() => handleMarkStatus(med.id, 'missed')} 
+                          onClick={() => handleMarkStatus(med._id, 'missed')} 
                           className={`status-btn missed-btn ${med.status === 'missed' ? 'active' : ''}`}
                         >
                           ✗ Missed
@@ -356,10 +333,10 @@ const MedicationDashboard = () => {
                     </div>
                     
                     <div className="action-buttons">
-                      <button onClick={() => navigate('/edit-medicine', { state: { medicationId: med.id } })} className="edit-btn">
+                      <button onClick={() => navigate('/edit-medicine', { state: { medicationId: med._id } })} className="edit-btn">
                           ✏️ Edit
                       </button>
-                      <button onClick={() => handleDeleteClick(med.id)} className="delete-btn">
+                      <button onClick={() => handleDeleteClick(med._id)} className="delete-btn">
                         🗑️ Delete
                       </button>
                     </div>
@@ -379,9 +356,7 @@ const MedicationDashboard = () => {
         </button>
         
         {/* Add Medicine Button */}
-        <button 
-        onClick={() => navigate('/add-medicine')}
-        className="fab add-fab">
+        <button className="fab add-fab">
           +
         </button>
       </div>

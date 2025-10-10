@@ -1,33 +1,43 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Signup.css';
 import signinBg from './assets/images/background.jpg'
-import './Signin.css';
 import axios from 'axios';
 
-const Signin = () => {
+const Signup = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    if (!agreeTerms) {
+      alert('Please agree to terms and conditions');
+      return;
+    } 
+
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post('http://localhost:5000/api/auth/signup', {
+        name,
         email,
+        phone,
         password
       });
     
-      // Store token in localStorage
+    // Store token in localStorage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userId', response.data.userId);
     
-      // Navigate to dashboard
+    // Navigate to dashboard
       navigate('/dashboard');
     } catch (error) {
-      alert(error.response?.data?.message || 'Login failed. Please try again.');
+      alert(error.response?.data?.message || 'Signup failed. Please try again.');
     }
   };
 
@@ -45,13 +55,13 @@ const Signin = () => {
   };
 
   const handleNavigation = (item) => {
-    if(item === 'Home') navigate('/home');
-    if(item === 'About') navigate('/about');
-    if(item === 'Services') navigate('/home#features');
-    if(item === 'Contact') navigate('/home#contact');
+    if (item === 'Home') navigate('/home');
+    if (item === 'About') navigate('/about');
+    if (item === 'Services') navigate('/home#features');
+    if (item === 'Contact') navigate('/home#contact');
     closeSidebar();
   };
-
+  
   const styles = {
     body: {
       backgroundColor: '#65ABDD',
@@ -83,14 +93,6 @@ const Signin = () => {
       fontSize: '16px',
       fontWeight: 500,
       cursor: 'pointer',
-      paddingBottom: '6px',
-      borderBottom: '6px solid white',
-      transition: 'all 0.3s ease',
-    },
-    navLinkHovered: {
-      borderBottom: '8px solid white',
-      transform: 'translateY(-3px)',
-      fontSize: '17px',
     },
     searchBar: {
       width: '250px',
@@ -137,12 +139,13 @@ const Signin = () => {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       width: '75%',
-      height: '550px',
+      minHeight: '600px',
       background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
       borderRadius: '10px',
       marginTop: '20px',
       display: 'flex',
       overflow: 'hidden',
+      backdropFilter: 'blur(10px)',
     },
     content: {
       flex: 1,
@@ -283,15 +286,15 @@ const Signin = () => {
       boxShadow: '0 0 10px rgba(10, 195, 170, 0.5)',
       transition: '0.5s ease',
     },
-    loginRegister: {
+    loginLink: {
       fontSize: '14.5px',
       fontWeight: 500,
       textAlign: 'center',
       marginTop: '25px',
     },
     registerLink: {
+      fontSize: '18px' ,
       color: 'rgba(84, 20, 188, 1)',
-      fontSize: '16px' ,
       textDecoration: 'none',
       fontWeight: 600,
       cursor: 'pointer',
@@ -361,7 +364,9 @@ const Signin = () => {
   const [hoveredLink, setHoveredLink] = useState(null);
   const [hoveredSocial, setHoveredSocial] = useState(null);
   const [hoveredSidebarLink, setHoveredSidebarLink] = useState(null);
+  const [nameFocused, setnameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
+  const [phoneFocused, setPhoneFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
 
   return (
@@ -397,7 +402,7 @@ const Signin = () => {
       </div>
 
       {/* Header */}
-      <header style={styles.header} className="signin-header">
+      <header style={styles.header} className="signup-header">
         {/* Hamburger Menu */}
         <button 
           style={styles.hamburger} 
@@ -418,7 +423,7 @@ const Signin = () => {
           }}></span>
         </button>
 
-        <nav style={styles.navbar} className="signin-navbar"> 
+        <nav style={styles.navbar} className="signup-navbar">
           {['Home', 'About', 'Services', 'Contact'].map((item, idx) => (
             <a
               key={idx}
@@ -436,7 +441,7 @@ const Signin = () => {
           ))}
         </nav>
         
-        <div style={styles.searchBar} className="signin-search-bar">
+        <div style={styles.searchBar} className="signup-search-bar">
           <input
             type="text"
             placeholder="Search..."
@@ -457,9 +462,8 @@ const Signin = () => {
       <div style={styles.background}></div>
 
       {/* Container */}
-      <div style={styles.container} className="signin-container">
-        {/* Content Section */}
-        <div style={styles.content} className="signin-content">
+      <div style={styles.container} className="signup-container">
+        <div style={styles.content} className="signup-content">
           <h2 style={styles.logo}>Doodle Developers</h2>
           
           <div style={{ marginTop: '20px' }}>
@@ -498,13 +502,15 @@ const Signin = () => {
           </div>
         </div>
 
-        {/* Login Form */}
-        <div style={styles.logregBox} className="signin-logreg-box">
-          <div style={styles.formBox} className="signin-form-box"> 
-            <h2 style={styles.formHeading} className="signin-form-heading">Sign In</h2>
+        {/* Sign Up Form */}
+        <div style={styles.logregBox} className="signup-logreg-box">
+          <div style={styles.formBox} className="signup-form-box">
+            <h2 style={styles.formHeading} className="signup-form-heading">Sign Up</h2>
             
+          
+
             {/* Email Input */}
-            <div style={styles.inputBox} className="signin-input-box">
+            <div style={styles.inputBox} className="signup-input-box">
               <span style={styles.icon}>
                 <i className="fa-solid fa-envelope"></i>
               </span>
@@ -527,8 +533,32 @@ const Signin = () => {
               </label>
             </div>
 
+            {/* Phone Number Input */}
+            <div style={styles.inputBox} className="signup-input-box">
+              <span style={styles.icon}>
+                <i className="fa-solid fa-phone"></i>
+              </span>
+              <input
+                type="tel"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                onFocus={() => setPhoneFocused(true)}
+                onBlur={() => setPhoneFocused(false)}
+                style={styles.input}
+              />
+              <label
+                style={{
+                  ...styles.label,
+                  ...(phoneFocused || phone ? styles.labelFocused : {}),
+                }}
+              >
+                Phone Number
+              </label>
+            </div>
+
             {/* Password Input */}
-            <div style={styles.inputBox} className="signin-input-box">
+            <div style={styles.inputBox} className="signup-input-box">
               <span style={styles.icon}>
                 <i className="fa-solid fa-lock"></i>
               </span>
@@ -551,43 +581,40 @@ const Signin = () => {
               </label>
             </div>
 
-            {/* Remember & Forgot */}
+            {/* Terms & Conditions */}
             <div style={styles.rememberForgot}>
               <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                 <input
                   type="checkbox"
-                  checked={rememberMe}
-                  onChange={(e) => setRememberMe(e.target.checked)}
+                  checked={agreeTerms}
+                  onChange={(e) => setAgreeTerms(e.target.checked)}
                   style={styles.checkbox}
                 />
-                Remember me
+                I agree to terms & conditions.
               </label>
-              <a style={styles.link} onMouseEnter={(e) => e.target.style.textDecoration = 'underline'} onMouseLeave={(e) => e.target.style.textDecoration = 'none'}>
-                Forgot Password?
-              </a>
             </div>
 
-            {/* Sign In Button */}
+            {/* Sign Up Button */}
             <button
               onClick={handleSubmit}
               style={styles.btn}
               onMouseEnter={(e) => e.target.style.opacity = '0.9'}
               onMouseLeave={(e) => e.target.style.opacity = '1'}
             >
-              Sign In
+              Sign Up
             </button>
 
-            {/* Register Link */}
-            <div style={styles.loginRegister}>
+            {/* Sign In Link */}
+            <div style={styles.loginLink}>
               <p>
-                Don't have an account?{' '}
+                Already have an account?{' '}
                 <a
-                  onClick={() => navigate('/signup')}
+                  onClick={() => navigate('/')}
                   style={styles.registerLink}
                   onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                   onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
                 >
-                  Register
+                  Sign In
                 </a>
               </p>
             </div>
@@ -598,4 +625,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;
