@@ -55,7 +55,7 @@ const Signup = () => {
   };
 
   const handleNavigation = (item) => {
-    if (item === 'Home') navigate('/home');
+    if (item === 'Home') navigate('/');
     if (item === 'About') navigate('/about');
     if (item === 'Services') navigate('/home#features');
     if (item === 'Contact') navigate('/home#contact');
@@ -631,7 +631,7 @@ const Signup = () => {
               <p>
                 Already have an account?{' '}
                 <a
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate('/signin')}
                   style={styles.registerLink}
                   onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                   onMouseLeave={(e) => e.target.style.textDecoration = 'none'}

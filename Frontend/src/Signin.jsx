@@ -1,43 +1,34 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Signup.css';
+import './Signin.css';
 import signinBg from './assets/images/background.jpg'
 import axios from 'axios';
 
-const Signup = () => {
+const Signin = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    if (!agreeTerms) {
-      alert('Please agree to terms and conditions');
-      return;
-    } 
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/signup', {
-        name,
+      const response = await axios.post('http://localhost:8080/api/auth/login', {
         email,
-        phone,
         password
       });
     
-    // Store token in localStorage
+      // Store token in localStorage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userId', response.data.userId);
     
-    // Navigate to dashboard
+      // Navigate to dashboard
       navigate('/dashboard');
     } catch (error) {
-      alert(error.response?.data?.message || 'Signup failed. Please try again.');
+      alert(error.response?.data?.message || 'Login failed. Please try again.');
     }
   };
 
@@ -55,7 +46,7 @@ const Signup = () => {
   };
 
   const handleNavigation = (item) => {
-    if (item === 'Home') navigate('/home');
+    if (item === 'Home') navigate('/');
     if (item === 'About') navigate('/about');
     if (item === 'Services') navigate('/home#features');
     if (item === 'Contact') navigate('/home#contact');
@@ -364,9 +355,7 @@ const Signup = () => {
   const [hoveredLink, setHoveredLink] = useState(null);
   const [hoveredSocial, setHoveredSocial] = useState(null);
   const [hoveredSidebarLink, setHoveredSidebarLink] = useState(null);
-  const [nameFocused, setnameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
-  const [phoneFocused, setPhoneFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
 
   return (
@@ -402,7 +391,7 @@ const Signup = () => {
       </div>
 
       {/* Header */}
-      <header style={styles.header} className="signup-header">
+      <header style={styles.header} className="signin-header">
         {/* Hamburger Menu */}
         <button 
           style={styles.hamburger} 
@@ -423,7 +412,7 @@ const Signup = () => {
           }}></span>
         </button>
 
-        <nav style={styles.navbar} className="signup-navbar">
+        <nav style={styles.navbar} className="signin-navbar">
           {['Home', 'About', 'Services', 'Contact'].map((item, idx) => (
             <a
               key={idx}
@@ -441,7 +430,7 @@ const Signup = () => {
           ))}
         </nav>
         
-        <div style={styles.searchBar} className="signup-search-bar">
+        <div style={styles.searchBar} className="signin-search-bar">
           <input
             type="text"
             placeholder="Search..."
@@ -462,14 +451,14 @@ const Signup = () => {
       <div style={styles.background}></div>
 
       {/* Container */}
-      <div style={styles.container} className="signup-container">
-        <div style={styles.content} className="signup-content">
+      <div style={styles.container} className="signin-container">
+        <div style={styles.content} className="signin-content">
           <h2 style={styles.logo}>Doodle Developers</h2>
           
           <div style={{ marginTop: '20px' }}>
             <h2 style={styles.mainHeading}>
-              Welcome! <br />
-              <span style={styles.subHeading}>To Our Website.</span>
+              Welcome Back! <br />
+              <span style={styles.subHeading}>Sign In to Continue.</span>
             </h2>
             
             <p style={styles.description}>
@@ -502,15 +491,13 @@ const Signup = () => {
           </div>
         </div>
 
-        {/* Sign Up Form */}
-        <div style={styles.logregBox} className="signup-logreg-box">
-          <div style={styles.formBox} className="signup-form-box">
-            <h2 style={styles.formHeading} className="signup-form-heading">Sign Up</h2>
-            
-          
+        {/* Sign In Form */}
+        <div style={styles.logregBox} className="signin-logreg-box">
+          <div style={styles.formBox} className="signin-form-box">
+            <h2 style={styles.formHeading} className="signin-form-heading">Sign In</h2>
 
             {/* Email Input */}
-            <div style={styles.inputBox} className="signup-input-box">
+            <div style={styles.inputBox} className="signin-input-box">
               <span style={styles.icon}>
                 <i className="fa-solid fa-envelope"></i>
               </span>
@@ -533,32 +520,8 @@ const Signup = () => {
               </label>
             </div>
 
-            {/* Phone Number Input */}
-            <div style={styles.inputBox} className="signup-input-box">
-              <span style={styles.icon}>
-                <i className="fa-solid fa-phone"></i>
-              </span>
-              <input
-                type="tel"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                onFocus={() => setPhoneFocused(true)}
-                onBlur={() => setPhoneFocused(false)}
-                style={styles.input}
-              />
-              <label
-                style={{
-                  ...styles.label,
-                  ...(phoneFocused || phone ? styles.labelFocused : {}),
-                }}
-              >
-                Phone Number
-              </label>
-            </div>
-
             {/* Password Input */}
-            <div style={styles.inputBox} className="signup-input-box">
+            <div style={styles.inputBox} className="signin-input-box">
               <span style={styles.icon}>
                 <i className="fa-solid fa-lock"></i>
               </span>
@@ -581,40 +544,48 @@ const Signup = () => {
               </label>
             </div>
 
-            {/* Terms & Conditions */}
+            {/* Remember Me & Forgot Password */}
             <div style={styles.rememberForgot}>
               <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                 <input
                   type="checkbox"
-                  checked={agreeTerms}
-                  onChange={(e) => setAgreeTerms(e.target.checked)}
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
                   style={styles.checkbox}
                 />
-                I agree to terms & conditions.
+                Remember me
               </label>
+              <a 
+                href="#" 
+                style={styles.link}
+                onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+              >
+                Forgot Password?
+              </a>
             </div>
 
-            {/* Sign Up Button */}
+            {/* Sign In Button */}
             <button
               onClick={handleSubmit}
               style={styles.btn}
               onMouseEnter={(e) => e.target.style.opacity = '0.9'}
               onMouseLeave={(e) => e.target.style.opacity = '1'}
             >
-              Sign Up
+              Sign In
             </button>
 
-            {/* Sign In Link */}
+            {/* Sign Up Link */}
             <div style={styles.loginLink}>
               <p>
-                Already have an account?{' '}
+                Don't have an account?{' '}
                 <a
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate('/signup')}
                   style={styles.registerLink}
                   onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                   onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
                 >
-                  Sign In
+                  Sign Up
                 </a>
               </p>
             </div>
@@ -625,4 +596,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signin;
