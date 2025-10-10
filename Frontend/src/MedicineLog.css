@@ -1,0 +1,61 @@
+/* Animation for loading spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Smooth scrolling for modal */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Responsive styles for tablets */
+@media (max-width: 768px) {
+  .medicine-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 480px) {
+  .medicine-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-content {
+    width: 95% !important;
+    padding: 30px 20px !important;
+  }
+}
+
+/* Hover effects */
+.medicine-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.history-item:hover {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Input focus effects */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: rgb(10, 195, 170) !important;
+  box-shadow: 0 0 0 3px rgba(10, 195, 170, 0.1);
+}

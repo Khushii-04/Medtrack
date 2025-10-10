@@ -39,28 +39,7 @@ const MedicationDashboard = () => {
   const takenPercentage = 80;
   const missedPercentage = 20;
 
-  // Generate heatmap data for a month (30 days)
-  const generateHeatmapData = () => {
-    const days = [];
-    for (let i = 1; i <= 30; i++) {
-      const random = Math.random();
-      let status, intensity;
-      if (random < 0.7) {
-        status = 'taken';
-        intensity = Math.floor(Math.random() * 3) + 1;
-      } else if (random < 0.85) {
-        status = 'missed';
-        intensity = Math.floor(Math.random() * 2) + 1;
-      } else {
-        status = 'none';
-        intensity = 0;
-      }
-      days.push({ day: i, status, intensity });
-    }
-    return days;
-  };
 
-  const heatmapData = generateHeatmapData();
 
   const toggleMedExpansion = (id) => {
     setExpandedMeds(prev => ({
@@ -153,7 +132,7 @@ const MedicationDashboard = () => {
               <span className="nav-icon">👤</span>
               <span><b>Profile</b></span>
             </button>
-            <button onClick={() => navigate('/medicine-log')} className="nav-item">
+            <button onClick={() => navigate('/log')} className="nav-item">
               <span className="nav-icon">📋</span>
               <span><b>Medicine Log</b></span>
             </button>
@@ -236,36 +215,7 @@ const MedicationDashboard = () => {
                 </div>
               </div>
 
-              {/* Monthly Heatmap */}
-              <div className="chart-container">
-                <h4 className="chart-title">Monthly Overview</h4>
-                <div className="heatmap-grid">
-                  {heatmapData.map((day) => (
-                    <div
-                      key={day.day}
-                      className="heatmap-cell"
-                      style={{ backgroundColor: getHeatmapColor(day.status, day.intensity) }}
-                      title={`Day ${day.day}: ${day.status}`}
-                    >
-                      {day.day}
-                    </div>
-                  ))}
-                </div>
-                <div className="heatmap-legend">
-                  <div className="legend-item">
-                    <div className="legend-color heatmap-taken"></div>
-                    <span>Taken</span>
-                  </div>
-                  <div className="legend-item">
-                    <div className="legend-color heatmap-missed"></div>
-                    <span>Missed</span>
-                  </div>
-                  <div className="legend-item">
-                    <div className="legend-color heatmap-none"></div>
-                    <span>None</span>
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
 
@@ -356,9 +306,12 @@ const MedicationDashboard = () => {
         </button>
         
         {/* Add Medicine Button */}
-        <button className="fab add-fab">
-          +
-        </button>
+<button 
+  onClick={() => navigate('/add')} 
+  className="fab add-fab"
+>
+  +
+</button>
       </div>
 
       {/* Chat Box */}
