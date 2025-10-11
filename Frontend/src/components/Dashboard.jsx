@@ -382,20 +382,6 @@ const MedicationDashboard = () => {
         </div>
       </div>
 
-      {/* Floating Action Buttons */}
-      <div className="floating-buttons">
-        {/* <button onClick={() => setShowChat(!showChat)} className="fab chat-fab" title="Chat Assistant">
-          💬
-        </button>
-         */}
-        <button 
-          onClick={() => navigate('/add')} 
-          className="fab add-fab"
-          title="Add Medicine"
-        >
-          +
-        </button>
-      </div>
 
       {/* Chat Box */}
       {showChat && (

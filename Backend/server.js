@@ -13,7 +13,7 @@ app.use(express.json());
 
 // Import routes
 const authRoutes = require('./routes/authRouter');
-const medicationRoutes = require('./routes/medicationRoutes');
+const medicationRoutes = require('./Routes/medicationRoutes');
 const userRoutes = require('./routes/userRoutes');
 const doseRoutes = require('./routes/doseRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');

@@ -160,7 +160,6 @@ const MonthlyAdherenceHeatmap = () => {
                                 day.isFuture ? 'Future date' :
                                 `${day.date}\n${day.adherenceRate.toFixed(0)}% adherence\n${day.count}/${day.total} medications taken`}
                         >
-                            {!day.isEmpty && <span className="day-number">{day.day}</span>}
                         </div>
                     ))}
                 </div>
