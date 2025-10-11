@@ -384,10 +384,10 @@ const MedicationDashboard = () => {
 
       {/* Floating Action Buttons */}
       <div className="floating-buttons">
-        <button onClick={() => setShowChat(!showChat)} className="fab chat-fab" title="Chat Assistant">
+        {/* <button onClick={() => setShowChat(!showChat)} className="fab chat-fab" title="Chat Assistant">
           💬
         </button>
-        
+         */}
         <button 
           onClick={() => navigate('/add')} 
           className="fab add-fab"
