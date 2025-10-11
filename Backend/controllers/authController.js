@@ -20,7 +20,11 @@ exports.register = async (req, res) => {
       expiresIn: "7d",
     });
 
-    res.status(201).json({ message: "Signup successful", token });
+      res.status(201).json({ 
+      message: "Signup successful", 
+      token,
+      userId: newUser._id 
+    });
   } catch (error) {
     console.error("Signup Error:", error);
     res.status(500).json({ message: error.message });
@@ -46,7 +50,11 @@ exports.login = async (req, res) => {
       expiresIn: "7d",
     });
 
-    res.status(200).json({ message: "Login successful", token });
+    res.status(200).json({ 
+      message: "Login successful", 
+      token,
+      userId: user._id 
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

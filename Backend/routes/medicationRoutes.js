@@ -1,21 +1,18 @@
-// routes/medicationRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middlewares/authMiddleware');
 
-// Import controller functions
 const {
     createMedication,
     getAllMedications,
     updateMedication,
-    deleteMedication
+    deleteMedication,
+    recordMedicineTaken,
+    getMedicineHistory
 } = require('../controllers/medicationController');
 
-// All routes in this file are protected, so we can apply the middleware at the top
 router.use(authMiddleware);
 
-// Define routes and map them to controller functions
 router.route('/')
     .post(createMedication)
     .get(getAllMedications);
@@ -23,5 +20,9 @@ router.route('/')
 router.route('/:id')
     .put(updateMedication)
     .delete(deleteMedication);
+
+// New routes for medicine log
+router.post('/take', recordMedicineTaken);
+router.get('/history', getMedicineHistory);
 
 module.exports = router;

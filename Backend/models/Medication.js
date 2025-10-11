@@ -1,13 +1,32 @@
-// models/Medication.js
 const mongoose = require('mongoose');
+
+const dailyStatusSchema = new mongoose.Schema({
+    date: {
+        type: Date,
+        required: true
+    },
+    day: {
+        type: String,
+        enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        required: true
+    },
+    status: {
+        type: String,
+        enum: ['taken', 'missed', 'pending'],
+        default: 'pending'
+    },
+    takenAt: {
+        type: Date
+    }
+});
 
 const medicationSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // Assumes you have a 'User' model
+        ref: 'User',
         required: true
     },
-    pillName: {
+    name: {
         type: String,
         required: true
     },
@@ -16,14 +35,23 @@ const medicationSchema = new mongoose.Schema({
         required: true
     },
     frequency: {
-        type: String, // e.g., 'Daily', 'Twice a day'
+        type: Number,
         required: true
     },
-    times: [{ // An array to store multiple times, e.g., ["08:00", "20:00"]
+    duration: [{
         type: String,
         required: true
     }],
-    // You can add more fields like 'startDate', 'instructions', etc.
+    time: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        enum: ['taken', 'missed', 'pending'],
+        default: 'pending'
+    },
+    dailyStatus: [dailyStatusSchema]  // ✅ Use the schema defined above
 }, { timestamps: true });
 
 const Medication = mongoose.model('Medication', medicationSchema);

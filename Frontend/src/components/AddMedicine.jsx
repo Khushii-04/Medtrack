@@ -43,7 +43,7 @@ const AddMedicine = () => {
   const confirmAdd = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/medications', 
+      await axios.post('http://localhost:8080/api/medications', 
         {
           name: pillName,
           dosage,
@@ -637,7 +637,7 @@ const AddMedicine = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> 
 
         {/* Success Modal */}
         <div style={{ ...styles.modalOverlay, ...(showSuccessModal ? styles.modalOverlayShow : {}) }}>

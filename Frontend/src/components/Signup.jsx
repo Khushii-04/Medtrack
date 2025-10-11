@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Signup.css';
-import signinBg from './assets/images/background.jpg'
+import '../styles/Signup.css';
+import signinBg from '../assets/images/background.jpg'
 import axios from 'axios';
 
 const Signup = () => {

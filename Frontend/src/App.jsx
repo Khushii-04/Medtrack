@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Signin from './Signin';
-import Signup from './Signup';
-import Homepage from './Homepage';
-import AboutUs from './AboutUs';
-import MedicationDashboard from './Dashboard';
-import EditMedicine from './EditPage';
-import AddMedicine from './AddMedicine';
-import Profile from './Profile';
-import MedicineLog from './MedicineLog';
+import Signin from './components/Signin';
+import Signup from './components/Signup';
+import Homepage from './components/Homepage';
+import AboutUs from './components/AboutUs';
+import MedicationDashboard from './components/Dashboard';
+import EditMedicine from './components/EditPage';
+import AddMedicine from './components/AddMedicine';
+import Profile from './components/Profile';
+import MedicineLog from './components/MedicineLog';
 
 function App() {
   return (
