@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Signup.css';
-import signinBg from './assets/images/background.jpg'
+import '../styles/Signup.css';
+import signinBg from '../assets/images/background.jpg'
 import axios from 'axios';
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
+  const [name, setname] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -23,8 +23,8 @@ const Signup = () => {
     } 
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/signup', {
-        username,
+      const response = await axios.post('http://localhost:8080/api/auth/signup', {
+        name,
         email,
         phone,
         password
@@ -55,7 +55,7 @@ const Signup = () => {
   };
 
   const handleNavigation = (item) => {
-    if (item === 'Home') navigate('/home');
+    if (item === 'Home') navigate('/');
     if (item === 'About') navigate('/about');
     if (item === 'Services') navigate('/home#features');
     if (item === 'Contact') navigate('/home#contact');
@@ -364,7 +364,7 @@ const Signup = () => {
   const [hoveredLink, setHoveredLink] = useState(null);
   const [hoveredSocial, setHoveredSocial] = useState(null);
   const [hoveredSidebarLink, setHoveredSidebarLink] = useState(null);
-  const [usernameFocused, setUsernameFocused] = useState(false);
+  const [nameFocused, setnameFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [phoneFocused, setPhoneFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
@@ -515,19 +515,19 @@ const Signup = () => {
               <input
                 type="text"
                 required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                onFocus={() => setUsernameFocused(true)}
-                onBlur={() => setUsernameFocused(false)}
+                value={name}
+                onChange={(e) => setname(e.target.value)}
+                onFocus={() => setnameFocused(true)}
+                onBlur={() => setnameFocused(false)}
                 style={styles.input}
               />
               <label
                 style={{
                   ...styles.label,
-                  ...(usernameFocused || username ? styles.labelFocused : {}),
+                  ...(nameFocused || name ? styles.labelFocused : {}),
                 }}
               >
-                Username
+                name
               </label>
             </div>
 
@@ -631,7 +631,7 @@ const Signup = () => {
               <p>
                 Already have an account?{' '}
                 <a
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate('/signin')}
                   style={styles.registerLink}
                   onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                   onMouseLeave={(e) => e.target.style.textDecoration = 'none'}

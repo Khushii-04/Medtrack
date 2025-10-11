@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
-const location = useLocation();
-const medicationId = location.state?.medicationId; 
 
 const EditMedicine = () => {
+  // ✅ SOLUTION: Hooks are now correctly placed inside the component.
+  const location = useLocation();
+  const medicationId = location.state?.medicationId; 
   const navigate = useNavigate();
+  
   const [pillName, setPillName] = useState('Aspirin');
   const [dosage, setDosage] = useState('20ml');
   const [frequency, setFrequency] = useState('2');
@@ -38,7 +40,7 @@ const EditMedicine = () => {
   const confirmChanges = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:5000/api/medications/${medicationId}`, 
+      await axios.put(`http://localhost:8080/api/medications/${medicationId}`, 
         {
           name: pillName,
           dosage,
@@ -54,7 +56,8 @@ const EditMedicine = () => {
         setShowSuccessModal(true);
       }, 300);
     }catch (error) {
-    alert('Failed to update medication');
+      // It's better to use a UI element than alert()
+      console.error('Failed to update medication', error);
       setShowConfirmModal(false);
     }
   };
@@ -143,7 +146,6 @@ const EditMedicine = () => {
       padding: '50px 60px',
       maxWidth: '900px',
       width: '100%',
-      animation: 'slideUp 0.5s ease',
     },
     cardHeader: {
       textAlign: 'center',

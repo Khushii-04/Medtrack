@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import signinBg from './assets/images/background.jpg'
-import './Signin.css';
+import '../styles/Signin.css';
+import signinBg from '../assets/images/background.jpg'
 import axios from 'axios';
 
 const Signin = () => {
@@ -14,8 +14,9 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post('http://localhost:8080/api/auth/login', {
         email,
         password
       });
@@ -45,13 +46,13 @@ const Signin = () => {
   };
 
   const handleNavigation = (item) => {
-    if(item === 'Home') navigate('/home');
-    if(item === 'About') navigate('/about');
-    if(item === 'Services') navigate('/home#features');
-    if(item === 'Contact') navigate('/home#contact');
+    if (item === 'Home') navigate('/');
+    if (item === 'About') navigate('/about');
+    if (item === 'Services') navigate('/home#features');
+    if (item === 'Contact') navigate('/home#contact');
     closeSidebar();
   };
-
+  
   const styles = {
     body: {
       backgroundColor: '#65ABDD',
@@ -83,14 +84,6 @@ const Signin = () => {
       fontSize: '16px',
       fontWeight: 500,
       cursor: 'pointer',
-      paddingBottom: '6px',
-      borderBottom: '6px solid white',
-      transition: 'all 0.3s ease',
-    },
-    navLinkHovered: {
-      borderBottom: '8px solid white',
-      transform: 'translateY(-3px)',
-      fontSize: '17px',
     },
     searchBar: {
       width: '250px',
@@ -137,12 +130,13 @@ const Signin = () => {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       width: '75%',
-      height: '550px',
+      minHeight: '600px',
       background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
       borderRadius: '10px',
       marginTop: '20px',
       display: 'flex',
       overflow: 'hidden',
+      backdropFilter: 'blur(10px)',
     },
     content: {
       flex: 1,
@@ -283,15 +277,15 @@ const Signin = () => {
       boxShadow: '0 0 10px rgba(10, 195, 170, 0.5)',
       transition: '0.5s ease',
     },
-    loginRegister: {
+    loginLink: {
       fontSize: '14.5px',
       fontWeight: 500,
       textAlign: 'center',
       marginTop: '25px',
     },
     registerLink: {
+      fontSize: '18px' ,
       color: 'rgba(84, 20, 188, 1)',
-      fontSize: '16px' ,
       textDecoration: 'none',
       fontWeight: 600,
       cursor: 'pointer',
@@ -418,7 +412,7 @@ const Signin = () => {
           }}></span>
         </button>
 
-        <nav style={styles.navbar} className="signin-navbar"> 
+        <nav style={styles.navbar} className="signin-navbar">
           {['Home', 'About', 'Services', 'Contact'].map((item, idx) => (
             <a
               key={idx}
@@ -458,14 +452,13 @@ const Signin = () => {
 
       {/* Container */}
       <div style={styles.container} className="signin-container">
-        {/* Content Section */}
         <div style={styles.content} className="signin-content">
           <h2 style={styles.logo}>Doodle Developers</h2>
           
           <div style={{ marginTop: '20px' }}>
             <h2 style={styles.mainHeading}>
-              Welcome! <br />
-              <span style={styles.subHeading}>To Our Website.</span>
+              Welcome Back! <br />
+              <span style={styles.subHeading}>Sign In to Continue.</span>
             </h2>
             
             <p style={styles.description}>
@@ -498,11 +491,11 @@ const Signin = () => {
           </div>
         </div>
 
-        {/* Login Form */}
+        {/* Sign In Form */}
         <div style={styles.logregBox} className="signin-logreg-box">
-          <div style={styles.formBox} className="signin-form-box"> 
+          <div style={styles.formBox} className="signin-form-box">
             <h2 style={styles.formHeading} className="signin-form-heading">Sign In</h2>
-            
+
             {/* Email Input */}
             <div style={styles.inputBox} className="signin-input-box">
               <span style={styles.icon}>
@@ -551,7 +544,7 @@ const Signin = () => {
               </label>
             </div>
 
-            {/* Remember & Forgot */}
+            {/* Remember Me & Forgot Password */}
             <div style={styles.rememberForgot}>
               <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
                 <input
@@ -562,7 +555,12 @@ const Signin = () => {
                 />
                 Remember me
               </label>
-              <a style={styles.link} onMouseEnter={(e) => e.target.style.textDecoration = 'underline'} onMouseLeave={(e) => e.target.style.textDecoration = 'none'}>
+              <a 
+                href="#" 
+                style={styles.link}
+                onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+              >
                 Forgot Password?
               </a>
             </div>
@@ -577,8 +575,8 @@ const Signin = () => {
               Sign In
             </button>
 
-            {/* Register Link */}
-            <div style={styles.loginRegister}>
+            {/* Sign Up Link */}
+            <div style={styles.loginLink}>
               <p>
                 Don't have an account?{' '}
                 <a
@@ -587,7 +585,7 @@ const Signin = () => {
                   onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
                   onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
                 >
-                  Register
+                  Sign Up
                 </a>
               </p>
             </div>

@@ -1,20 +1,25 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Signin from './Signin';
-import Signup from './Signup';
-import Homepage from './Homepage';
-import AboutUs from './AboutUs';
-import MedicationDashboard from './Dashboard';
-import EditMedicine from './EditPage';
-import AddMedicine from './AddMedicine';
+import Signin from './components/Signin';
+import Signup from './components/Signup';
+import Homepage from './components/Homepage';
+import AboutUs from './components/AboutUs';
+import MedicationDashboard from './components/Dashboard';
+import EditMedicine from './components/EditPage';
+import AddMedicine from './components/AddMedicine';
+import Profile from './components/Profile';
+import MedicineLog from './components/MedicineLog';
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Signin />} />
+        <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={<Homepage />} />
-        <Route path="/add-medicine" element={<AddMedicine />} />
+        <Route path="/" element={<Homepage />} />
+        <Route path="/add" element={<AddMedicine />}></Route>
+        <Route path="/profile" element={<Profile />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/log" element={<MedicineLog />} />
         <Route path="/dashboard" element={<MedicationDashboard />} />
         <Route path="/edit-medicine" element={<EditMedicine />} />
       </Routes>

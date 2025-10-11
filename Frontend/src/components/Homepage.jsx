@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import back from './assets/images/back3.avif';
+import back from '../assets/images/back3.avif';
 import axios from 'axios';
 
 const Homepage = () => {
@@ -229,7 +229,7 @@ const Homepage = () => {
               }}
               onMouseEnter={() => setHoveredButton('signin')}
               onMouseLeave={() => setHoveredButton(null)}
-              onClick={() => handleNavigation('/')}
+              onClick={() => handleNavigation('/signin')}
             >
               <b>Sign In</b>
             </button>
@@ -263,7 +263,7 @@ const Homepage = () => {
             }}
             onMouseEnter={() => setStartBtnHovered(true)}
             onMouseLeave={() => setStartBtnHovered(false)}
-            onClick={() => handleNavigation('/')}
+            onClick={() => handleNavigation('/signin')}
           >
             Get Started
           </button>
