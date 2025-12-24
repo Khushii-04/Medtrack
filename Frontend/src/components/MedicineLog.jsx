@@ -414,51 +414,13 @@ const MedicineLog = () => {
         {/* Floating Chat Button */}
         <button
           className="chat-fab"
-          onClick={() => setShowChat(!showChat)}
+          onClick={() => {
+            setShowChat(!showChat);
+            navigate('/Chatbot');
+          }}
         >
           💬
         </button>
-
-        {/* Chat Box */}
-        <div className={`chat-box ${showChat ? 'chat-box-show' : ''}`}>
-          <div className="chat-header">
-            <h3>Chat Assistant</h3>
-            <button
-              onClick={() => setShowChat(false)}
-              className="chat-close-btn"
-            >
-              ✕
-            </button>
-          </div>
-          <div className="chat-body">
-            {chatMessages.map((msg, idx) => (
-              <div
-                key={idx}
-                className={`chat-message ${msg.type === 'bot' ? 'bot-message' : 'user-message'}`}
-              >
-                <div className="message-content">
-                  {msg.content}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="chat-footer">
-            <input
-              type="text"
-              placeholder="Type a message..."
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-              onKeyPress={handleChatKeyPress}
-              className="chat-input"
-            />
-            <button
-              onClick={handleSendMessage}
-              className="chat-send-btn"
-            >
-              📤
-            </button>
-          </div>
-        </div>
 
         {/* Add Medicine Modal */}
         {showAddModal && (

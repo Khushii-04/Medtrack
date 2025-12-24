@@ -551,61 +551,14 @@ const EditMedicine = () => {
         {/* Floating Chat Button */}
         <button
           style={styles.chatFab}
-          onClick={() => setShowChat(!showChat)}
+          onClick={() =>{
+            setShowChat(!showChat);
+            navigate('/Chatbot');
+          }
+        }
         >
           💬
         </button>
-
-        {/* Chat Box */}
-        <div style={{ ...styles.chatBox, ...(showChat ? styles.chatBoxShow : {}) }}>
-          <div style={styles.chatHeader}>
-            <h3>Chat Assistant</h3>
-            <button
-              onClick={() => setShowChat(false)}
-              style={{ background: 'none', border: 'none', color: 'white', fontSize: '24px', cursor: 'pointer' }}
-            >
-              ✕
-            </button>
-          </div>
-          <div style={styles.chatBody}>
-            {chatMessages.map((msg, idx) => (
-              <div
-                key={idx}
-                style={{
-                  ...styles.chatMessage,
-                  alignSelf: msg.type === 'bot' ? 'flex-start' : 'flex-end',
-                }}
-              >
-                <div
-                  style={{
-                    ...styles.messageContent,
-                    ...(msg.type === 'bot'
-                      ? { backgroundColor: 'white', color: '#374151', border: '1px solid #e5e7eb' }
-                      : { background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }),
-                  }}
-                >
-                  {msg.content}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={styles.chatFooter}>
-            <input
-              type="text"
-              placeholder="Type a message..."
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-              onKeyPress={handleChatKeyPress}
-              style={styles.chatInput}
-            />
-            <button
-              onClick={handleSendMessage}
-              style={{ padding: '10px 16px', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', border: 'none', borderRadius: '20px', fontSize: '18px', cursor: 'pointer' }}
-            >
-              📤
-            </button>
-          </div>
-        </div>
 
         {/* Confirmation Modal */}
         <div style={{ ...styles.modalOverlay, ...(showConfirmModal ? styles.modalOverlayShow : {}) }}>

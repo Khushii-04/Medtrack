@@ -383,41 +383,14 @@ const MedicationDashboard = () => {
       </div>
 
 
-      {/* Chat Box */}
-      {showChat && (
-        <div className="chat-box show">
-          <div className="chat-header">
-            <h3>Chat Assistant</h3>
-            <button onClick={() => setShowChat(false)} className="chat-close">✕</button>
-          </div>
-          <div className="chat-body">
-            {chatMessages.map((msg, idx) => (
-              <div
-                key={idx}
-                className={`chat-message ${msg.type === 'bot' ? 'bot-message' : 'user-message'}`}
-              >
-                <div className="message-bubble">
-                  {msg.content}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="chat-footer">
-            <input 
-              type="text" 
-              placeholder="Type a message..." 
-              className="chat-input"
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-              onKeyPress={handleChatKeyPress}
-            />
-            <button onClick={handleSendMessage} className="chat-send-btn">
-              📤
-            </button>
-          </div>
-        </div>
-      )}
-
+      {/* Floating Action Buttons */}
+      <button onClick={() => {
+        setShowChat(!showChat);
+        navigate('/Chatbot')
+      }
+      } className="fab chat-fab" title="Chat Assistant">
+          💬
+        </button>
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="modal-overlay">
