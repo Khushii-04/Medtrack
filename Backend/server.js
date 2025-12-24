@@ -58,3 +58,6 @@ app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
     startNotificationScheduler();
 });
+
+require('dotenv').config();
+console.log("✅ Loaded OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? "Yes" : "No");

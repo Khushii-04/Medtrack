@@ -272,7 +272,7 @@ const MedicationDashboard = () => {
           fill="none"
           stroke="#10b981"
           strokeWidth="20"
-          strokeDasharray={`${2 * Math.PI * 80 * ((takenPercentage) / 100)} ${2 * Math.PI * 80}`}
+          strokeDasharray={`${2 * Math.PI * 80 * ((takenPercentage+25) / 100)} ${2 * Math.PI * 80}`}
           strokeDashoffset={2 * Math.PI * 80 * 0.25}
           transform="rotate(-90 100 100)"
         />
