@@ -189,12 +189,16 @@ const MedicineLog = () => {
     setChatInput('');
 
     try {
-      const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:8080/api/chat',
-        { message: userMessage },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+  'http://localhost:8080/api/chat',
+  { message: userMessage },
+  {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('token')}` // Use JWT token
+    }
+  }
+);
 
       setChatMessages(prev => [...prev, {
         type: 'bot',
@@ -205,6 +209,8 @@ const MedicineLog = () => {
         type: 'bot',
         content: "I'm here to help! This feature will be connected to an API soon."
       }]);
+      console.error('Chat error:', error);
+
     }
   };
 
