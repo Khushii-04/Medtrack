@@ -14,7 +14,9 @@ const Signup = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+
   const handleSubmit = async (e) => {
+
     e.preventDefault();
   
     if (!agreeTerms) {
@@ -39,6 +41,8 @@ const Signup = () => {
     } catch (error) {
       alert(error.response?.data?.message || 'Signup failed. Please try again.');
     }
+
+    navigate("/otp", { state: { email } });
   };
 
   const handleSearch = (e) => {

@@ -9,6 +9,7 @@ import AddMedicine from './components/AddMedicine';
 import Profile from './components/Profile';
 import MedicineLog from './components/MedicineLog';
 import MedicalChatbot from './components/Chatbot';
+import OtpPage from './components/OtpPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/log" element={<MedicineLog />} />
         <Route path="/dashboard" element={<MedicationDashboard />} />
         <Route path="/edit-medicine" element={<EditMedicine />} />
+          <Route path="/otp" element={<OtpPage />} />
         <Route path="/chatbot" element={<MedicalChatbot/>} />
       </Routes>
     </BrowserRouter>
